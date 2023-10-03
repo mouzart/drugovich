@@ -1,0 +1,11 @@
+.bg-orange{
+   background-color: #E18F53 !important;
+}
+
+.ball {
+   border-radius: 50%;
+   display: inline-block;
+   height: 15px;
+   width: 15px;
+   box-shadow: inset -1px -1px 3px #660, inset 1px 1px 3px #FFF;
+}

@@ -1,0 +1,49 @@
+<div class="row align-items-center">
+  <div class="col-8 h5">
+    <fa-icon [icon]="faUser" class="h5 mr-1"></fa-icon> Listagem de Clientes
+  </div>
+  <div class="col-4 text-right">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"
+      (click)="clientSelected={ name: '', cnpj: '', status: ''}"><fa-icon [icon]="faPlus"></fa-icon> Novo</button>
+  </div>
+</div>
+<div class="row border-bottom mt-2 mb-4">
+
+</div>
+
+<table class="table table-borderless">
+  <tbody >
+    <tr class="row bg-white mb-2 rounded" *ngFor="let client of clients">
+      <td class="col-12 col-sm-5 h6 mt-2">{{client.name}}</td>
+      <td class="col-12 col-sm-4 align-middle mt-2">{{client.cnpj | cnpj}}</td>
+      <td class="col-12 col-sm-1 align-middle mt-2">
+        <ng-container *ngIf="client.status == 'Ativo'; else elseTemplate">
+          <div class="ball bg-success"></div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="ball bg-danger"></div>
+        </ng-template>
+        <span [ngClass]="{'text-success': client.status == 'Ativo','text-danger': client.status != 'Ativo'}" class="ml-1">{{client.status}}</span> 
+      </td>
+      <td class="col-sm-2 text-right d-none d-sm-inline">
+        <button class="btn bg-orange text-white" (click)="clientSelected=client" data-toggle="modal"
+          data-target="#modal">
+          <fa-icon [icon]="faEdit"></fa-icon> Editar
+        </button>
+      </td>
+      <td class="col-12 d-sm-none d-inline bg-light text-center">
+        <button class="btn bg-orange text-white" (click)="clientSelected=client" data-toggle="modal"
+          data-target="#modal">
+          <fa-icon [icon]="faEdit"></fa-icon> Editar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<small>
+  Exibindo {{clients.length}} clientes
+</small>
+
+<app-modal [client]="clientSelected" (clientNew)="clientSave($event)">
+</app-modal>
