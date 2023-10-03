@@ -27,8 +27,9 @@ export class ListComponent implements OnInit {
   }
 
   clientSave(client: Client) {
-    if (this.clients.find(c => c.cnpj == client.cnpj)) {
-      console.log('clientSave',client);
+    const index = this.clients.findIndex(c => c.cnpj === client.cnpj)
+    if (index > 0) {
+      this.clients[index] = client;
     } else {
       this.clients.push(client)
     }
